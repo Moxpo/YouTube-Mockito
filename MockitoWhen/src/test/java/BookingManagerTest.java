@@ -16,23 +16,29 @@ public class BookingManagerTest {
     private BookingManager bookingManager;
 
     @Before
-    public void setup() throws SQLException {
-
+    public void setUp() throws SQLException {
         hotelDaoMock = mock(HotelDao.class);
         bookingManager = new BookingManager(hotelDaoMock);
-
         List<String> availableRooms = Arrays.asList("A");
         when(hotelDaoMock.fetchAvailableRooms()).thenReturn(availableRooms);
+
 
     }
 
     @Test
     public void checkAvailableRoomsTrue() throws SQLException {
+
         assertTrue(bookingManager.checkRoomAvailability("A"));
     }
 
     @Test
     public void checkAvailableRoomsFalse() throws SQLException {
+        List<String> availableRooms = Arrays.asList("A");
+        when(hotelDaoMock.fetchAvailableRooms()).thenReturn(availableRooms);
+
         assertFalse(bookingManager.checkRoomAvailability("B"));
     }
+
+
+
 }
